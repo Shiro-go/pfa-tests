@@ -34,6 +34,14 @@ function tests_integrator()
     end
 
     % Helper functions for colored output
+    function print_result_gn(name, success, given, needed)
+        if success
+            fprintf([GREEN, "[SUCESS]\n", RESET]);
+        else
+            fprintf([RED, "[FAIL] :\n   ", RESET, name, "\n     given : ", RESET, given, "\n     expected : ", needed]);
+        end
+        upd_score(success);
+    end
     function print_result(name, success)
         if success
             fprintf([GREEN, "[SUCESS]\n", RESET]);
@@ -46,7 +54,7 @@ function tests_integrator()
         if abs(current-expected)<close_factor
             print_result([], 1);
         else
-            print_result([name, DIM, "\n      - current  : ", WHITE, num2str(current), DIM, "\n      - expected : ", WHITE, num2str(expected), RESET], 0);
+            print_result_gn(name, 0, num2str(current), num2str(expected));
         end
     end
     function assert_integration(name, itg, f, a, b, n, expected)
@@ -215,10 +223,10 @@ function tests_integrator()
 
         ns = [10, 20, 50, 100];
         s = itg.integration_error(@(x) x.^2, 0, 1, 1/3, ns, []);
-        print_result("Integration error model", s(1) > 0 && s(2) > 0);
+        print_result_gn("Integration error model", s(1) > 0 && s(2) > 0, s, "both positives");
         
         s = itg.integration_error(@(x) exp(-x), 0, 1, 1 - exp(-1), ns, []);
-        print_result("Integration error model for exp(-x)", s(1) > 0 && s(2) > 0);
+        print_result_gn("Integration error model for exp(-x)", s(1) > 0 && s(2) > 0), s, "both positives";
         
         fprintf("\n\n");
         
