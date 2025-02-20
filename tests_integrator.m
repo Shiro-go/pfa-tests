@@ -38,7 +38,7 @@ function tests_integrator()
         if success
             fprintf([GREEN, "[SUCESS]\n", RESET]);
         else
-            fprintf([RED, "[FAIL] :\n   ", RESET, name, "\n     given : ", RESET, given, "\n     expected : ", needed]);
+            fprintf([RED, "[FAIL] :\n   ", RESET, name, "\n     given : ", RESET, given, "\n     expected : ", needed, "\n"]);
         end
         upd_score(success);
     end
@@ -54,7 +54,7 @@ function tests_integrator()
         if abs(current-expected)<close_factor
             print_result([], 1);
         else
-            print_result_gn(name, 0, num2str(current), num2str(expected));
+            print_result_gn(name, 0, current, expected);
         end
     end
     function assert_integration(name, itg, f, a, b, n, expected)
