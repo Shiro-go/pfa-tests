@@ -226,7 +226,7 @@ function tests_integrator()
         print_result_gn("Integration error model", s(1) > 0 && s(2) > 0, s, "both positives");
         
         s = itg.integration_error(@(x) exp(-x), 0, 1, 1 - exp(-1), ns, []);
-        print_result_gn("Integration error model for exp(-x)", s(1) > 0 && s(2) > 0), s, "both positives";
+        print_result_gn("Integration error model for exp(-x)", s(1) > 0 && s(2) > 0, s, "both positives");
         
         fprintf("\n\n");
         
