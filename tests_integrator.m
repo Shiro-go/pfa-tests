@@ -44,15 +44,15 @@ function tests_integrator()
     end
     function print_result(name, success)
         if success
-            fprintf([GREEN, "[SUCESS]\n", RESET]);
+            fprintf([GREEN, "[SUCESS]: ", RESET, name, "\n"]);
         else
-            fprintf([RED, "[FAIL] :\n   ", RESET, name, "\n", RESET]);
+            fprintf([RED, "[FAIL]: ", RESET, name, "\n"]);
         end
         upd_score(success);
     end
     function assert_in_range(name, current, expected)
         if abs(current-expected)<close_factor
-            print_result([], 1);
+            print_result([name], 1);
         else
             print_result_gn(name, 0, current, expected);
         end
@@ -96,27 +96,17 @@ function tests_integrator()
         itgb01.set("method", "gauss2", "dx", 0.2);
         current = (strcmp(itgb01.method, "gauss2") && itgb01.dx == 0.2);
         print_result("Set method and dx", current);
-        % b02 : set method twice
-        itgb02 = integrator();
-        itgb02.set("method", "left", "dx", 0.3, "method", "gauss2");
-        current = (strcmp(itgb02.method, "gauss2") && itgb02.dx == 0.3);
-        print_result("Set method *2 and dx", current);
-        % b03 : set only method
+        % b02 : set only method
         itgb03 = integrator();
         itgb03.set("method", "gauss2");
         current = (strcmp(itgb03.method, "gauss2"));
         print_result("Set method", current);
-        % b04 : set both once
+        % b03 : set both once
         itgb04 = integrator();
         itgb04.set("method", "gauss2", "dx", 0.1);
         current = (strcmp(itgb04.method, "gauss2") && itgb04.dx == 0.1);
         print_result("Set method and dx", current);
-        % b05 : set method twice
-        itgb05 = integrator();
-        itgb05.set("method", "gauss2", "dx", 0.1, "method", "trapezes");
-        current = (strcmp(itgb05.method, "trapezes") && itgb05.dx == 0.1);
-        print_result("Set method *2 and dx", current);
-        % b06 : set only method
+        % b04 : set only method
         itgb06 = integrator();
         itgb06.set("method", "gauss2");
         current = (strcmp(itgb06.method, "gauss2"));

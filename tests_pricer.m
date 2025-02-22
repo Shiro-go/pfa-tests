@@ -35,15 +35,15 @@ function tests_pricer()
     % Helper functions for colored output
     function print_result(name, success)
         if success
-            fprintf([GREEN, "[SUCESS]\n", RESET]);
+            fprintf([GREEN, "[SUCESS]: ", RESET, name, "\n"]);
         else
-            fprintf([RED, "[FAIL] :\n   ", RESET, name, "\n", RESET]);
+            fprintf([RED, "[FAIL]: ", RESET, name, "\n"]);
         end
         upd_score(success);
     end
     function assert_in_range(name, current, expected)
         if abs(current-expected)<close_factor
-            print_result([], 1);
+            print_result([name], 1);
         else
             print_result([name, DIM, "\n      - current  : ", WHITE, num2str(current), DIM, "\n      - expected : ", WHITE, num2str(expected), RESET], 0);
         end
